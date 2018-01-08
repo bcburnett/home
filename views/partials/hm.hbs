@@ -1,0 +1,245 @@
+  <link rel=stylesheet href="./codemirror/lib/codemirror.css">
+  <link rel=stylesheet href="./codemirror/doc/docs.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .modal{
+  display:block;
+  position: fixed;
+  z-index:1;
+  left: 0;
+  top:0;
+  height: 100%;
+  width:100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+  </style>
+  <div class="container-fluid" id="container">
+  <main role="main" class="section">
+      <!-- full screen width container with small margin -->
+      <div class="row">
+        <!-- row of columns -->
+
+
+        <div class="col-lg-2">
+          <div class="section-title-div">
+            <h2 class="section-title-h2-left">To Do List</h2>
+          </div>
+          <input class="input-todo" type="text" id="todo" placeholder="Todo Title">
+          <input class="input-todo" id="duedate" type="date">
+          <p id="todoButtonp">
+            <button class="btn btn-primary" role="button" id="todoButton">Add Todo</button>
+          </p>
+          <p id="result"></p>
+        </div>
+
+
+        <div class="col-lg-7 ">
+          <!-- content section -->
+          <div id="sectionTitle" class="section-title-div">
+
+            <button class="btn btn-primary recipe-add-button" onclick="$('#addrecipe').toggle()">add</button>
+            <input type="text" name="recipeSearch" id="recipeSearchText" class="input-recipe recipe-float-left" placeholder="Search on-line recipes">
+            <button class="btn btn-primary recipe-float-left" onclick="$('#recipesearch').empty();$('#recipeSearchText').val('')">
+              clear
+            </button>
+            <h2 class="section-title-h2-center">Recipes</h2>
+          </div>
+          <div id="addrecipe" class="hide">
+            <label for="recipetitle">title</label>
+            <input type="text" name="recipetitle" id="recipetitle">
+            <label for="ingredients">ingredients</label>
+            <textarea name="ingredients" id="ingredients" cols="90" rows="10"></textarea>
+            <label for="directions">directions</label>
+            <textarea name="directions" id="directions" cols="90" rows="10"></textarea>
+            <button id="recipebutton" class="btn btn-outline-primary">Add Recipe to Database</button>
+          </div>
+          <div id="recipesearch" class="recipe-search-div"></div>
+          <div id="recipe" class="recipe-display-div"></div>
+        </div>
+
+
+        <div class="col-lg-3 ">
+          <!-- right sidebar -->
+          <div class="section-title-div">
+            <h2 id="time" class="section-title-h2-right"></h2>
+          </div>
+          <p id="weather"></p>
+          <div id="weather-hourly" class="recipe-search-div" style ="width:250px; height:110px; margin:auto;"></div>
+
+          <div data-toggle="tooltip" title="Type an Expression and Press Enter to Evaluate" style="margin:10px;">
+            <input class="input-chat" id="calculator" ondblclick="this.value='';" onchange="this.value =eval(this.value)" placeholder="Calculator"
+              width="parent">
+          </div>
+
+          <div style="margin:10px;">
+            <form method="get" action="https://www.google.com/search" target="_blank">
+              <input type="text" name="q" value="" class="input-chat" placeholder="Google Search" ondblclick="this.value='';">
+            </form>
+          </div>
+
+          <div id="sectionTitle" class="section-title-div">
+            <input type="text" name="wikiSearch" id="wikiSearchText" class="wiki-search-input input-recipe" placeholder="Wikipedia Search">
+            <button class="btn btn-primary recipe-add-button" onclick="$('#wikisearch').empty();$('#wikiSearchText').val('')">
+              clear
+            </button>
+          </div>
+          <div id="wikisearch" class="recipe-search-div"></div>
+          <div id="mario-chat">
+            <div id="chat-window">
+              <div id="output"></div>
+            </div>
+            <input class="input-chat" type="text" name="" id="handle" placeholder="Handle">
+            <input class="input-chat" type="text" name="" id="message" placeholder="Message">
+            <button class="btn btn-primary" id="send">
+              Send
+            </button>
+          </div>
+          <!-- /mario-chat -->
+        </div>
+        <!-- /right sidebar -->
+
+
+      </div>
+      <!--/row -->
+
+      <div class="row">
+        <!-- row of columns -->
+
+
+        <div class="col-lg-6">
+          <div class="section-title-div">
+            <h2 class="section-title-h2-left">Linked Editor</h2>
+          </div>
+          <textarea id="demotext"></textarea>
+          <table>
+            <tr>
+              <td>Filename to Save As:</td>
+              <td>
+                <input id="inputFileNameToSaveAs"></input>
+              </td>
+              <td>
+                <button class="btn btn-primary" onclick="saveTextAsFile()">Save Text to File</button>
+              </td>
+              <td>
+                <button class="btn btn-primary" id="editbtn">Update</button>
+              </td>
+
+            </tr>
+
+          </table>
+        </div>
+
+        <div class="col-lg-6 ">
+          <!-- right sidebar -->
+          <div class="section-title-div">
+            <h2 id="time" class="section-title-h2-right">White Board</h2>
+          </div>
+          <div id="myContainer"></div>
+          <div>
+              <table>
+                  <tr>
+                      <td>
+                          <button id="wbClear" class="btn btn-primary">Clear</button>
+                      </td>
+                      <td>
+                          <button id="wbUpdate" class="btn btn-primary">Update</button>
+                      </td>
+                      <td>
+                          <input type="text" style="width:2rem;background-color:grey;text-shadow: 1px 1px #999;color:white" id="brushSize" onchange="setBrushSize(this.value)" value="10">
+                      </td>
+                      <td>
+                          <button id="wbUpdate" class="btn btn-primary"  >save</button>
+                        </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:red;text-shadow: 1px 1px #000;" onclick="setColr('red')">red</button>
+                      </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:white;text-shadow: 1px 1px #000;" onclick="setColr('white')">white</button>
+                      </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:blue;text-shadow: 1px 1px #000;" onclick="setColr('blue')">blue</button>
+                      </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:yellow;text-shadow: 1px 1px #000;" onclick="setColr('yellow')">yellow</button>
+                      </td>
+                    </tr><tr>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:orange;text-shadow: 1px 1px #000;" onclick="setColr('orange')">orange</button>
+                      </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:purple;text-shadow: 1px 1px #000;" onclick="setColr('purple')">purple</button>
+                      </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:green;text-shadow: 1px 1px #000;" onclick="setColr('green')">green</button>
+                      </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:brown;text-shadow: 1px 1px #000;" onclick="setColr('brown')">brown</button>
+                      </td>
+                      <td>
+                        <button id="wbUpdate" class="btn btn-primary" style="color:black;text-shadow: 1px 1px #000;" onclick="setColr('black')">black</button>
+                      </td>
+                      
+
+                  </tr>
+
+              </table>
+          </div>
+        </div>
+        <!-- /right sidebar -->
+      </div>
+      <!--/row -->
+    </div>
+<script src="https://code.jquery.com/jquery-3.2.1.js" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+  crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+  crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js">
+</script>
+<script src="zounds.js">
+</script>
+<script src="./codemirror/lib/codemirror.js"></script>
+<script src="./codemirror/mode/xml/xml.js"></script>
+<script src="./codemirror/mode/javascript/javascript.js"></script>
+<script src="./codemirror/mode/css/css.js"></script>
+<script src="./codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="./codemirror/addon/edit/matchbrackets.js"></script>
+<script src="./p5/p5.js"></script>
+<script src="./p5/p5.dom.js"></script>
+<script src="./p5/p5.sound.js"></script>
+<script src="./p5/p5.play.js"></script>
+<script>
+
+</script>
+<script type="text/javascript">
+  function saveTextAsFile() {
+    var textToSave = document.getElementById("demotext").value;
+    var textToSaveAsBlob = new Blob([textToSave], {
+      type: "text/plain"
+    });
+    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+  }
+
+  function destroyClickedElement(event) {
+    document.body.removeChild(event.target);
+  }
+</script>
+<script src="chat.js">
+</script>
+<script src="./sketch.js"></script>

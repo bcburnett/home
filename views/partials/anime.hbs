@@ -1,0 +1,24 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+<div class="container">
+
+<div id="blue-box" class="bg-primary box" onmousedown="animateBox('#blue-box')"><p>Testing</p></div>
+<div id="red-box" class="bg-danger box" onmousedown="animateBox('#red-box')"><p>Testing</p></div>
+<div id="green-box" class="bg-success box" onmousedown="animateBox('#green-box')"><p>Testing</p></div>
+<div id="yellow-box" class="bg-warning box" onmousedown="animateBox('#yellow-box')"><p>Testing</p></div>
+
+<script>
+    function animateBox(target){
+    anime({
+  targets: target,
+
+  scale: .50,
+  duration: 250,
+  direction:'alternate',
+  loop: 1,
+  easing:'easeInOutSine'
+})
+    }
+
+
+</script>
+</div>

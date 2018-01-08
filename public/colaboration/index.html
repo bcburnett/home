@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Management</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <link rel=stylesheet href="./codemirror/lib/codemirror.css">
+    <link rel=stylesheet href="./codemirror/doc/docs.css">
+    <link rel="stylesheet" href="../styles.css">
+
+
+</head>
+
+<body class="section">
+    <main role="main">
+
+
+        <h1 class="grey-background-title">Home Management</h1>
+        <!-- full screen no margin -->
+
+
+        <div class="container-fluid section">
+            <!-- full screen width container with small margin -->
+            <div class="row">
+                <!-- row of columns -->
+
+
+                <div class="col-lg-6">
+                    <div class="section-title-div">
+                        <h2 class="section-title-h2-left">Linked Editor</h2>
+                    </div>
+                    <textarea id="demotext"></textarea>
+                    <table>
+                        <tr>
+                            <td>Filename to Save As:</td>
+                            <td>
+                                <input id="inputFileNameToSaveAs"></input>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" onclick="saveTextAsFile()">Save Text to File</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" id="editbtn">Update</button>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="col-lg-6 ">
+                    <!-- right sidebar -->
+                    <div class="section-title-div">
+                        <h2 id="time" class="section-title-h2-right">White Board</h2>
+                    </div>
+                    <div id="myContainer"></div>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <button id="wbClear" class="btn btn-primary">Clear</button>
+                                </td>
+                                <td>
+                                    <button id="wbUpdate" class="btn btn-primary">Update</button>
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+                <!-- /right sidebar -->
+            </div>
+            <!--/row -->
+        </div>
+        <!-- /container -->
+    </main>
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.2.1.js" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js">
+</script>
+<script src="../zounds.js">
+</script>
+<script src="./codemirror/lib/codemirror.js"></script>
+<script src="./codemirror/mode/xml/xml.js"></script>
+<script src="./codemirror/mode/javascript/javascript.js"></script>
+<script src="./codemirror/mode/css/css.js"></script>
+<script src="./codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="./codemirror/addon/edit/matchbrackets.js"></script>
+<script src="./p5/p5.js"></script>
+
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
+
+        lineNumbers: true,
+        mode: "text/html",
+        matchBrackets: true
+    });
+</script>
+<script type="text/javascript">
+    function saveTextAsFile() {
+        var textToSave = document.getElementById("demotext").value;
+        var textToSaveAsBlob = new Blob([textToSave], {
+            type: "text/plain"
+        });
+        var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+        var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
+
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        downloadLink.href = textToSaveAsURL;
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+
+        downloadLink.click();
+    }
+
+    function destroyClickedElement(event) {
+        document.body.removeChild(event.target);
+    }
+</script>
+<script src="./sketch.js"></script>
